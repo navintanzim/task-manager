@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\TaskController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,10 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/tasks', [TaskController::class, 'store']);
+    Route::get('/tasks', [TaskController::class, 'index']);
+
+    // return $request->user();
 });
 
 Route::get('/test', function (Request $request) {
     return response()->json(['message' => 'testing!']);
 });
+Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
+Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
