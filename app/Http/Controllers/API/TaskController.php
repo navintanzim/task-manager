@@ -36,4 +36,48 @@ class TaskController extends Controller
             'task' => $task
         ], 201);
     }
+
+    public function show($taskId)
+    {
+        $task = Task::find($taskId);
+
+        if (!$task) {
+            return response()->json(['error' => 'Task not found'], 404);
+        }
+
+        return response()->json($task);
+    }
+
+    public function update(Request $request, $taskId)
+    {
+        $task = Task::find($taskId);
+
+        if (!$task) {
+            return response()->json(['error' => 'Task not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|string|in:Pending,Completed',
+        ]);
+
+        
+
+       $task->name = $validated['name'];
+       $task->description = $validated['description'];
+       $task->status = $validated['status'];
+       $task->save();
+
+        return response()->json($task);
+    }
+
+    public function destroy($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
+
+        return response()->json(['message' => 'Task deleted successfully']);
+    }
+
 }
