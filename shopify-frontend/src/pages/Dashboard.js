@@ -58,7 +58,7 @@ export default function Dashboard() {
     <Badge status={task.status === 'Pending' ? 'attention' : 'success'}>
       {task.status}
     </Badge>,
-    <div style={{ display: 'flex', gap: '0.5rem' }}>
+    <div style={{ display: 'flex', gap: '0.5rem',justifyContent: 'flex-end' }}>
       <Button primary onClick={() => navigate(`/edit/${task.id}`)} >
         Edit
       </Button>
@@ -84,10 +84,6 @@ export default function Dashboard() {
     if (currentPage < maxPage) setCurrentPage(currentPage + 1);
   };
 
-  // const paginatedTasks = filteredTasks.slice(
-  // (currentPage - 1) * itemsPerPage,
-  // currentPage * itemsPerPage
-  // );
 
   const pendingTasks = filteredTasks
     .filter((t) => t.status === 'Pending')

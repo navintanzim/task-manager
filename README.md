@@ -30,7 +30,8 @@ Your app should be now running on http://localhost:3000/. You should see the lan
 
 In the dashboard page there are two tables for Completed Task and Pending Task. There is a button on top right to create new tasks. The task form has name, description (optional) and status (pending/complete). There are buttons for edit and delete operation on the tables. The logout button is at the right hand side of the topbar.
 
-
+To do unit testing for task creation, in the project root folder run (php artisan test)
+WARNING, RUNNING THIS TEST WILL EMPTY THE DATABASE. DO NOT RUN THIS COMMAND ON YOUR MAIN DATABASE OR YOU WILL LOSE THE DATA!!
 
 ## License
 
