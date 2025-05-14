@@ -29,7 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     return response()->json(['message' => 'Logged out']);
     });
 
-
 });
 
 Route::get('/test', function (Request $request) {
