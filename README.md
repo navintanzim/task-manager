@@ -7,60 +7,32 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About This Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The simple task manager is a web app build with Laravel and React. It uses shopify polaris and tailwind css to handle frontend. The running of the project is pretty straightforward.
+Requirements: Ensure PHP, Composer, Node.js, npm and MySQL are installed on the machine.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+First, install PHP dependencies by (composer install).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The .env example contains most information already. Rename it as .env and it should function just the same. Just generate the new app key with (php artisan key:generate).
 
-## Learning Laravel
+Remember to change the database keys to fit your own database. This project was fitted for a database with InnoDB and utf8_unicode_ci encoding.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Run (php artisan migrate) to generate the database tables.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Open a terminal inside the folder 'shopify-frontend'. Run (npm install).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+In the laravel project root folder 'task-manager', run ( php artisan serve --host=localhost). This is important! The API is domain sensitive. Simply running php artisan serve will not work! Make sure that the server running on [http://localhost:8000]. It is not the same as 127.0.0.1:8000.
 
-## Laravel Sponsors
+In the react project folder 'shopify-frontend', run (npm start).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Your app should be now running on http://localhost:3000/. You should see the landing page with options to register and login. The rest of the project is straightforward. You make a user, login and be taken to the dashboard page.
 
-### Premium Partners
+In the dashboard page there are two tables for Completed Task and Pending Task. There is a button on top right to create new tasks. The task form has name, description (optional) and status (pending/complete). There are buttons for edit and delete operation on the tables. The logout button is at the right hand side of the topbar.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Created by: Mashrure Tanzim (https://github.com/navintanzim/task-manager)

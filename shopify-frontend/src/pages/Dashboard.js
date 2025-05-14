@@ -10,7 +10,9 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 5;  // pagination limit
+  const [completedPage, setCompletedPage] = useState(1);
+  const [pendingPage, setPendingPage] = useState(1);
 
 
   const fetchTasks = async () => {
@@ -66,9 +68,7 @@ export default function Dashboard() {
     </div>,
   ];
 
-  // const pendingTasks = tasks.filter((t) => t.status === 'Pending').map(formatTaskRow);
-  // const completedTasks = tasks.filter((t) => t.status === 'Completed').map(formatTaskRow);
-
+  
   const filteredTasks = tasks.filter(task =>
   task.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
   task.description?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -84,10 +84,10 @@ export default function Dashboard() {
     if (currentPage < maxPage) setCurrentPage(currentPage + 1);
   };
 
-  const paginatedTasks = filteredTasks.slice(
-  (currentPage - 1) * itemsPerPage,
-  currentPage * itemsPerPage
-  );
+  // const paginatedTasks = filteredTasks.slice(
+  // (currentPage - 1) * itemsPerPage,
+  // currentPage * itemsPerPage
+  // );
 
   const pendingTasks = filteredTasks
     .filter((t) => t.status === 'Pending')
@@ -96,6 +96,18 @@ export default function Dashboard() {
   const completedTasks = filteredTasks
     .filter((t) => t.status === 'Completed')
     .map(formatTaskRow);
+
+  const paginatedCompletedTasks = completedTasks.slice(
+  (completedPage - 1) * itemsPerPage,
+  completedPage * itemsPerPage
+  );
+
+  const paginatedPendingTasks = pendingTasks.slice(
+    (pendingPage - 1) * itemsPerPage,
+    pendingPage * itemsPerPage
+  );
+
+  
 
   return (
     <TailwindLayout>
@@ -122,13 +134,13 @@ export default function Dashboard() {
             <DataTable
               columnContentTypes={['text', 'text', 'text', 'text']}
               headings={['Name', 'Description', 'Status', 'Actions']}
-              rows={pendingTasks}
+              rows={paginatedPendingTasks}
             />
             <Pagination
-              hasPrevious={currentPage > 1}
-              onPrevious={handlePrevious}
-              hasNext={currentPage * itemsPerPage < filteredTasks.length}
-              onNext={handleNext}
+              hasPrevious={pendingPage  > 1}
+              onPrevious={() => setPendingPage(pendingPage - 1)}
+              hasNext={pendingPage * itemsPerPage < completedTasks.length}
+              onNext={() => setPendingPage(pendingPage + 1)}
             />
           </Card>
         </Layout.Section>
@@ -139,13 +151,13 @@ export default function Dashboard() {
             <DataTable
               columnContentTypes={['text', 'text', 'text', 'text']}
               headings={['Name', 'Description', 'Status', 'Actions']}
-              rows={completedTasks}
+              rows={paginatedCompletedTasks}
             />
             <Pagination
-              hasPrevious={currentPage > 1}
-              onPrevious={handlePrevious}
-              hasNext={currentPage * itemsPerPage < filteredTasks.length}
-              onNext={handleNext}
+              hasPrevious={completedPage  > 1}
+              onPrevious={() => setCompletedPage(completedPage - 1)}
+              hasNext={completedPage * itemsPerPage < completedTasks.length}
+              onNext={() => setCompletedPage(completedPage + 1)}
             />
           </Card>
         </Layout.Section>

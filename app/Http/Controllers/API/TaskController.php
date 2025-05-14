@@ -5,12 +5,19 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Libraries\Encryption;
 
 class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        $tasks = $request->user()->tasks()->latest()->get();
+    
+
+    $tasks = $request->user()->tasks()->latest()->get()->map(function ($task) {
+    $taskArray = $task->toArray();
+    $taskArray['id'] = Encryption::safe_b64encode($task->id);
+    return $taskArray;
+    })->values();
 
         return response()->json($tasks);
 
@@ -37,8 +44,13 @@ class TaskController extends Controller
         ], 201);
     }
 
-    public function show($taskId)
+    public function show($encoded_taskId)
     {
+        $taskId = Encryption::safe_b64decode($encoded_taskId);
+        
+        if (!$taskId || !is_numeric($taskId)) {
+        return response()->json(['error' => 'Invalid ID'], 404);
+        }
         $task = Task::find($taskId);
 
         if (!$task) {
@@ -48,8 +60,10 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
-    public function update(Request $request, $taskId)
+    public function update(Request $request, $encoded_taskId)
     {
+
+        $taskId = Encryption::safe_b64decode($encoded_taskId);
         $task = Task::find($taskId);
 
         if (!$task) {

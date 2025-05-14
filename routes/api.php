@@ -36,3 +36,5 @@ Route::get('/test', function (Request $request) {
 });
 Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
 Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
+
+// Created by: Mashrure Tanzim (https://github.com/navintanzim/task-manager)
