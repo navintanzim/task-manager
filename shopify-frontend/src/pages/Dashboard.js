@@ -135,7 +135,7 @@ export default function Dashboard() {
             <Pagination
               hasPrevious={pendingPage  > 1}
               onPrevious={() => setPendingPage(pendingPage - 1)}
-              hasNext={pendingPage * itemsPerPage < completedTasks.length}
+              hasNext={pendingPage * itemsPerPage < pendingTasks.length}
               onNext={() => setPendingPage(pendingPage + 1)}
             />
           </Card>
