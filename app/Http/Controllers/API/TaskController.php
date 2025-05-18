@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Task;
-use App\Libraries\Encryption;
+use App\libraries\Encryption;
 
 class TaskController extends Controller
 {
@@ -88,7 +88,8 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
-        $task = Task::findOrFail($id);
+        taskId = Encryption::safe_b64decode($id);
+        $task = Task::findOrFail($taskId);
         $task->delete();
 
         return response()->json(['message' => 'Task deleted successfully']);
