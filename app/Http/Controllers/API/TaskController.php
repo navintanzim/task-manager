@@ -88,7 +88,7 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
-        taskId = Encryption::safe_b64decode($id);
+        $taskId = Encryption::safe_b64decode($id);
         $task = Task::findOrFail($taskId);
         $task->delete();
 
