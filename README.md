@@ -28,7 +28,9 @@ In the react project folder 'shopify-frontend', run (npm start).
 
 Your app should be now running on http://localhost:3000/. You should see the landing page with options to register and login. The rest of the project is straightforward. You make a user, login and be taken to the dashboard page.
 
-In the dashboard page there are two tables for Completed Task and Pending Task. There is a button on top right to create new tasks. The task form has name, description (optional) and status (pending/complete). There are buttons for edit and delete operation on the tables. The logout button is at the right hand side of the topbar.
+The dashboard page has a calendar that tracks tasks completed on the current month.
+
+In the Tasks page there are two tables for Completed Task and Pending Task. There is a button on top right to create new tasks. The task form has name, description and status (pending/complete). There are buttons for edit and delete operation on the tables. The logout button is at the right hand side of the topbar.
 
 To do unit testing for task creation, in the project root folder run (php artisan test)
 WARNING, RUNNING THIS TEST WILL EMPTY THE DATABASE. DO NOT RUN THIS COMMAND ON YOUR MAIN DATABASE OR YOU WILL LOSE THE DATA!!
