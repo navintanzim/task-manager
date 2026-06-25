@@ -71,7 +71,7 @@ export default function EditTask() {
         }
       );
 
-      navigate('/dashboard');
+      navigate('/tasks');
     } catch (err) {
       console.error(err);
       setError('Failed to edit task.');
@@ -79,7 +79,7 @@ export default function EditTask() {
   };
 
   const handleBack = () => {
-    navigate('/dashboard');  
+    navigate('/tasks');  
   };
 
   return (
@@ -120,7 +120,7 @@ export default function EditTask() {
             <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: '1rem' }}>
 
                 <Button onClick={handleBack} plain>
-                  Back to Dashboard
+                  Back to Tasks
                 </Button>
               <div style={{ width: '30%',margin: '0 auto' }}>
                 <Button onClick={handleSubmit} primary>

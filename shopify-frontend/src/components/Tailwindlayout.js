@@ -8,6 +8,7 @@ export default function AuthShell({ children }) {
 const location = useLocation();
 
 const isTaskRoute =
+  location.pathname.startsWith('/tasks') ||
   location.pathname.startsWith('/create') ||
   location.pathname.startsWith('/edit/');
 
@@ -29,7 +30,7 @@ const isTaskRoute =
           </NavLink>
           
           <NavLink
-            to="/dashboard"
+            to="/tasks"
             className={`block px-4 py-2 rounded font-medium ${
               isTaskRoute ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'
             }`}

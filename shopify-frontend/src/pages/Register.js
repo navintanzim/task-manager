@@ -12,26 +12,46 @@ export default function Register() {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const getErrorMessage = (err) => {
+    const responseData = err?.response?.data;
+
+    if (responseData?.errors) {
+      const firstValidationError = Object.values(responseData.errors)[0];
+      if (Array.isArray(firstValidationError) && firstValidationError[0]) {
+        return firstValidationError[0];
+      }
+    }
+
+    if (responseData?.message) {
+      return responseData.message;
+    }
+
+    return 'Registration failed. Please try again.';
+  };
+
   const handleSubmit = async () => {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!emailPattern.test(email)) {
-          setError('Please enter a valid email address.');
-          return;
-        }
+    setError('');
 
-        if (!password) {
-          setError('Password is required.');
-          return;
-        }
-        if (!name) {
-          setError('Name is required.');
-          return;
-        }
-        if (!passwordConfirmation) {
-          setError('Confirmation of your password is required.');
-          return;
-        }
+    if (!emailPattern.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if (!password) {
+      setError('Password is required.');
+      return;
+    }
+    if (!name) {
+      setError('Name is required.');
+      return;
+    }
+    if (!passwordConfirmation) {
+      setError('Confirmation of your password is required.');
+      return;
+    }
     try {
       // Get CSRF cookie
       await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
@@ -52,14 +72,14 @@ export default function Register() {
         {
           withCredentials: true,
           headers: {
-          'X-XSRF-TOKEN': csrfToken,
-        },
+            'X-XSRF-TOKEN': csrfToken,
+          },
         }
       );
-       navigate('/login', { state: { success: 'Registration successful! Please log in.' } });
+      navigate('/login', { state: { success: 'Registration successful! Please log in.' } });
     } catch (err) {
       console.error(err);
-      setError('Registration failed. Check your inputs.');
+      setError(getErrorMessage(err));
     }
   };
 

@@ -22,8 +22,17 @@ export default function CreateTask() {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    setError('');
+
     if (!name.trim()) {
       setError('Task name is required.');
+      return;
+    }
+
+    const trimmedDescription = description.trim();
+
+    if (!trimmedDescription) {
+      setError('Task description is required.');
       return;
     }
 
@@ -38,7 +47,7 @@ export default function CreateTask() {
         'http://localhost:8000/api/tasks',
         {
           name,
-          description,
+          description: trimmedDescription,
           status,
         },
         {
@@ -49,7 +58,7 @@ export default function CreateTask() {
         }
       );
 
-      navigate('/dashboard');
+      navigate('/tasks');
     } catch (err) {
       console.error(err);
       setError('Failed to create task.');
@@ -57,7 +66,7 @@ export default function CreateTask() {
   };
 
   const handleBack = () => {
-    navigate('/dashboard');  
+    navigate('/tasks');  
   };
   
   return (
@@ -98,7 +107,7 @@ export default function CreateTask() {
               <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: '1rem' }}>
 
                 <Button onClick={handleBack} plain>
-                  Back to Dashboard
+                  Back to Tasks
                 </Button>
               <div style={{ width: '30%',margin: '0 auto' }}>
                 <Button onClick={handleSubmit} primary  style={{ marginTop: '1rem' }}>
